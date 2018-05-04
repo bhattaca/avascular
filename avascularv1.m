@@ -384,3 +384,12 @@ plot(score( (4601:1:4700),1),score( (4601:1:4700),2),'kx',...
      'MarkerSize',10,'LineWidth',3) ; hold on; 
  plot(score( (14502:1:14601),1),score( (14502:1:14601),2),'gx',...
      'MarkerSize',10,'LineWidth',3) 
+
+ GMModel = fitgmdist(score,3);
+ gmPDF = @(x,y)pdf(GMModel,[x y]);
+ 
+h = gscatter(score(:,1),score(:,2),data(:,10));
+hold on
+ezcontour(gmPDF,[-10 10],[-10 10]);
+ezcontour(@(x1,x2)pdf(GMModel,[x1 x2]),get(gca,{'XLim','YLim'}))
+ 
